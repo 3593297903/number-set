@@ -60,7 +60,7 @@ $numberData = Join-Path (Get-Location).Path 'data'
 
 release测试会生成真实QA批次，并对其生成/审查进程做故障测试；日常历史不作为故障注入对象。
 
-构建后保留dist/NumberTool完整目录，双击NumberTool.exe。NumberVerify.exe可独立复核。更多操作见[使用说明](docs/USAGE.md)，验证范围见[验证记录](docs/VERIFICATION.md)。
+构建后保留dist/NumberTool完整目录，按[使用说明](docs/USAGE.md)显式指定数据目录启动exe。也可运行创建桌面快捷方式.ps1，通过指向本项目data目录的快捷方式启动。NumberVerify.exe可独立复核，验证范围见[验证记录](docs/VERIFICATION.md)。
 
 ## 数据与审查约束
 

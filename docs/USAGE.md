@@ -4,7 +4,7 @@
 
 新设备使用Windows 10/11 x64并先安装Python 3.13 x64及Python launcher。克隆或解压仓库后，运行setup.cmd；安装完成后运行start.cmd。首次需要联网下载锁定依赖。start.cmd会显式将数据放到此份项目下的data目录，因此不依赖原电脑的E盘路径。
 
-按README安装依赖并构建，保留`dist/NumberTool`的完整目录。双击NumberTool.exe，或显式指定数据目录：
+如需exe，按README安装依赖并构建，保留`dist/NumberTool`的完整目录。在项目根目录显式指定数据目录启动：
 
 ```powershell
 $numberData = Join-Path (Get-Location).Path 'data'
