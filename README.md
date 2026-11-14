@@ -19,7 +19,22 @@ Windows本地桌面工具：Python 3.13、PySide6、SQLite及spawn独立审查�
 
 源码仓库：[3593297903/number-set](https://github.com/3593297903/number-set)。本仓库只发布程序源码、测试、固定格式样例、构建配置和公开文档；实际号码数据、数据库、备份、QA证据、本机交接资料及exe构建产物不入Git。
 
-## 安装与源码启动
+## 新设备快速运行
+
+当前程序面向Windows 10/11 x64。新设备需要安装Python 3.13 x64（包含Python launcher），首次安装依赖需要联网访问PyPI。
+
+```powershell
+git clone https://github.com/3593297903/number-set.git
+cd number-set
+.\setup.cmd
+.\start.cmd
+```
+
+也可在GitHub下载源码ZIP后解压，双击setup.cmd安装，再双击start.cmd启动。数据写入当前项目目录的data子目录，不要求新设备存在E盘。数据与虚拟环境只在新设备本地建立，不随源码公开上传。
+
+安装脚本只建立项目自己的.venv并安装锁定依赖；可重复运行更新安装，不会删除data。源码模式会保留命令窗口用于显示启动错误，构建后的exe为窗口版。
+
+## 手动安装与源码启动
 
 在项目根目录使用Windows和Python 3.13：
 

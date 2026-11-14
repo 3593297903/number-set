@@ -7,6 +7,8 @@ if (Test-Path -LiteralPath $numberLinkPath) { Write-Output "快捷方式已存�
 $numberLinkShell = New-Object -ComObject WScript.Shell
 $numberLink = $numberLinkShell.CreateShortcut($numberLinkPath)
 $numberLink.TargetPath = $numberExe
+$numberData = Join-Path $PSScriptRoot 'data'
+$numberLink.Arguments = 'gui --data-dir "{0}"' -f $numberData
 $numberLink.WorkingDirectory = $PSScriptRoot
 $numberLink.Description = '随机号码分组工具 2.0'
 $numberLink.WindowStyle = 1
