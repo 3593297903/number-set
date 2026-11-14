@@ -1,0 +1,46 @@
+# Local Python environment and packaging caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Application data, generated numbers and verification evidence
+/data/
+/data_*/
+/*_backups/
+/qa/
+/交付样例/
+/交接资料核对结果.json
+/scripts/recount_user_two.py
+*.sqlite
+*.sqlite-*
+*.db
+*.log
+*.xml
+
+# Build outputs; source packaging/*.spec remains tracked
+/build/
+/build-*/
+/dist/
+/dist-*/
+*.exe
+*.dll
+*.pyd
+*.zip
+
+# Credentials and local editor configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.idea/
+.vscode/
+Thumbs.db
+Desktop.ini
