@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "purpose": "仅用于同组格式化与文本解析单元测试；小样例不是可通过正式批次审查的数据，不能据此放宽生产套数、组数、配额和总数约束。",
+  "copies_for_format_limit": 300,
+  "positive_cases": [
+    {
+      "name": "user_original_21",
+      "raw_codes": ["192", "168", "174", "156", "389", "985", "467", "487", "192", "192", "156", "389", "389", "389", "389", "389", "581", "452", "257", "257", "257"],
+      "expected_raw_count": 21,
+      "expected_distinct_count": 11,
+      "expected_text": "168.174.985.467.487.581.452直选1元\n156直选2元\n192.257直选3元\n389直选6元\n"
+    },
+    {
+      "name": "leading_zero_12",
+      "raw_codes": ["007", "128", "356", "007", "482", "128", "128", "905", "356", "356", "040", "482"],
+      "expected_raw_count": 12,
+      "expected_distinct_count": 6,
+      "expected_text": "905.040直选1元\n007.482直选2元\n128.356直选3元\n"
+    },
+    {
+      "name": "larger_50",
+      "raw_codes": [
+        "000", "192", "389", "018", "443", "156", "257", "812", "999", "604",
+        "007", "482", "731", "389", "018", "443", "812", "999", "640", "192",
+        "128", "257", "604", "018", "443", "812", "999", "156", "731", "389",
+        "356", "482", "018", "443", "812", "999", "640", "192", "257", "604",
+        "905", "731", "389", "018", "443", "812", "999", "604", "443", "999"
+      ],
+      "expected_raw_count": 50,
+      "expected_distinct_count": 17,
+      "expected_text": "000.007.128.356.905直选1元\n156.482.640直选2元\n192.257.731直选3元\n389.604直选4元\n018.812直选5元\n443.999直选6元\n"
+    },
+    {
+      "name": "all_single",
+      "raw_codes": ["000", "007", "999"],
+      "expected_raw_count": 3,
+      "expected_distinct_count": 3,
+      "expected_text": "000.007.999直选1元\n"
+    },
+    {
+      "name": "one_code_six",
+      "raw_codes": ["007", "007", "007", "007", "007", "007"],
+      "expected_raw_count": 6,
+      "expected_distinct_count": 1,
+      "expected_text": "007直选6元\n"
+    }
+  ],
+  "invalid_text_cases": [
+    {"name": "chinese_amount_one", "text": "007直选一元\n", "reason": "金额必须为阿拉伯数字"},
+    {"name": "lost_leading_zero", "text": "7直选1元\n", "reason": "号码必须为三位ASCII数字"},
+    {"name": "duplicate_code_same_line", "text": "007.007直选2元\n", "reason": "同组同一号码只能列一次"},
+    {"name": "duplicate_code_across_lines", "text": "007直选1元\n007直选2元\n", "reason": "同号不得跨金额重复列出"},
+    {"name": "same_amount_split", "text": "007直选2元\n128直选2元\n", "reason": "相同金额必须合并一行"},
+    {"name": "amount_zero", "text": "007直选0元\n", "reason": "金额必须为正整数"},
+    {"name": "amount_leading_zero", "text": "007直选02元\n", "reason": "金额不能有前导零"},
+    {"name": "amount_decimal", "text": "007直选1.5元\n", "reason": "金额不能为小数"},
+    {"name": "amount_negative", "text": "007直选-1元\n", "reason": "金额不能为负数"},
+    {"name": "amount_above_copies", "text": "007直选301元\n", "reason": "单个号码的同组金额不能超过原始套数300"},
+    {"name": "descending_amount", "text": "007直选2元\n128直选1元\n", "reason": "金额行必须递增"},
+    {"name": "trailing_dot", "text": "007.直选1元\n", "reason": "分隔符不能产生空号码"},
+    {"name": "trailing_content", "text": "007直选1元其他\n", "reason": "整行必须完整符合格式"},
+    {"name": "extra_blank_line", "text": "007直选1元\n\n", "reason": "不允许额外空行"},
+    {"name": "non_ascii_digits", "text": "００７直选1元\n", "reason": "号码必须为ASCII数字"},
+    {"name": "wrong_suffix", "text": "007x2\n", "reason": "正式表达必须为直选N元"}
+  ],
+  "semantic_mismatch_cases": [
+    {"name": "right_syntax_wrong_amount", "raw_codes": ["007", "007", "007"], "wrong_text": "007直选2元\n", "correct_text": "007直选3元\n", "reason": "语法正确仍需与原始份数对应"},
+    {"name": "wrong_first_appearance_order", "raw_codes": ["128", "007", "128", "007"], "wrong_text": "007.128直选2元\n", "correct_text": "128.007直选2元\n", "reason": "同金额号码按原始首次出现顺序"}
+  ]
+}
